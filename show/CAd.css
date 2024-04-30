@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background: rgb(0, 200, 255); /* Changed background color */
+    font-family: "Poppins", sans-serif;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 13%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar a {
+    font-size: 16px;
+    color: #000; /* Changed text color */
+    margin-right: 30px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #f72d7a; /* Changed hover color */
+}
+
+.search-bar {
+    width: 250px;
+    height: 45px;
+    background-color: rgb(0, 229, 255); /* Changed background color */
+    border: 2px solid #000; /* Changed border color */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #000; /* Changed text color */
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.search-bar button {
+    width: 40px;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #000; /* Changed icon color */
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 550px;
+    margin-top: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    color: #000; /* Changed text color */
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.text-item h2 {
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.text-item p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.social-icon a i {
+    color: #000; /* Changed icon color */
+    font-size: 24px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-icon a i:hover {
+    color: #f72d7a; /* Changed hover color */
+}
+
+.login-section {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    width: 50%; /* Adjusted width */
+    max-width: 400px; /* Added max-width for responsiveness */
+    height: auto; /* Changed to auto */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Added background color with opacity */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added box shadow */
+}
+
+.form-box {
+    text-align: center;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 40px; /* Changed height */
+    padding: 0 10px;
+    border: 1px solid #ccc; /* Changed border color */
+    border-radius: 5px;
+    outline: none;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333; /* Changed label color */
+}
+
+.btn {
+    width: 100%;
+    height: 40px; /* Changed height */
+    border: none;
+    border-radius: 5px;
+    background-color: #f72d7a;
+    color: #fff; /* Changed text color */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #d62968; /* Changed hover background color */
+}
+
+.create-account {
+    margin-top: 10px;
+}
+
+.create-account p {
+    font-size: 14px;
+}
+

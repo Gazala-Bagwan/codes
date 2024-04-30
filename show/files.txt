@@ -1,0 +1,1151 @@
+<?php
+require('connection.php');
+
+if(isset($_POST['submit'])) {
+    // Debugging: Output form data to check values
+    var_dump($_POST);
+    var_dump($_FILES);
+
+    // Retrieve form data
+    $mv_name = $_POST['mv_name'];
+    $mv_m_desc = $_POST['mv_m_desc'];
+    $mv_m_tag = $_POST['mv_m_tag'];
+    $mv_link = $_POST['mv_link'];
+    $mv_cast = $_POST['mv_cast'];
+    $mv_lang = $_POST['mv_lang'];
+    $mv_director = $_POST['mv_director'];
+
+    $genre_id = $_POST['genre_id'];
+    $cat_id = $_POST['cat_id'];
+    $mv_date = date('Y-m-d', strtotime($_POST['mv_date']));
+    $target = "thumb/".basename($_FILES['img']['name']);
+
+    $img = $_FILES['img']['name'];
+    $img_tmp = $_FILES['img']['tmp_name']; // Temporary file path
+
+    $query = "INSERT INTO `movie`(`cat_id`, `genre_id`, `mv_name`, `mv_des`, `mv_tag`, `link1`, `img`, `date`, `lang`, `director`, `meta_description`, `cast`) 
+    VALUES ('$cat_id', '$genre_id', '$mv_name', '$mv_m_desc', '$mv_m_tag', '$mv_link', '$img', '$mv_date', '$mv_lang', '$mv_director', '$mv_m_desc', '$mv_cast')"; // Removed semicolon here
+
+    $run = mysqli_query($con, $query);
+
+    // Check for SQL query execution errors
+    if(!$run) {
+        echo "Error: " . mysqli_error($con);
+    }
+
+    // Check file upload errors
+    if($_FILES['img']['error'] !== UPLOAD_ERR_OK) {
+        echo "File upload failed with error code: " . $_FILES['img']['error'];
+    }
+
+    // Check if the file was successfully moved to the target directory
+    if(move_uploaded_file($img_tmp, $target)) {
+        echo "<script>alert('File inserted successfully....');window.location.href='video.php';</script>";
+    } else {
+        // Display error message
+        echo "<script>alert('Something went wrong while moving the file....');window.location.href='video.php';</script>";
+    }
+} else {
+    echo "Sorry, there was an error uploading your file.";
+}
+?>
+      
+
+      //?php
+require('connection.php');
+$id = $_GET['deleteid'];
+$query ="DELETE FROM `category` WHERE id = $id";
+$run = mysqli_query($con,$query);
+if($run)
+{
+    echo"<script>alert('admin has been deleted!'); window.location.href='addcategory.php';</script>";
+
+}
+else{
+    echo"<script>alert('something went wrong!'); window.location.href='addcategory.php';</script>";
+
+}
+?//       
+    //index.php<?php
+require('connection.php');
+?>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Movies website</title>
+    <link rel="stylesheet" href="style.css">
+    <!--box Icons-->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+</head>
+<body>
+   <!--Navbar-->
+    <header>
+      <a href="#home" class="logo">
+        <i class='bx bxs-movie'></i>GPTv
+    </a>
+        
+        <div class="bx bx-menu" id="menu-icon"></div>
+         <!--search-->
+        
+        <!--Menu-->
+        <ul class="navbar">
+            <li><a href="#home" class="home-active">Home</a></li>
+            <li><a href="#movies">Movies</a></li>
+           <li><a href="anime.html">Anime</a></li>
+            <li><a href="series.html">Series</a></li>
+            <li><a href="addcategory.php">Category</a></li>
+            <li><a href="genre.php">Genre</a></li>
+            <li><a href="aboutus.html">about us</a></li>
+            
+        </ul>
+        <!--search-->
+       
+        <li class="search-box">
+          <input type="text" placeholder="Search...">
+          <button><i class='bx bx-search'></i></button>
+      </li>
+            <a href="signin.php" class="btn">Sign In</a>
+    </header>
+    <!--home-->
+    <section class="home-swiper" id="home">
+      
+        <div class="swiper-wrapper">
+        <div class="swiper-slide container">
+          <img src="./images/vision.jpg" alt="">
+          <div class="home-text">
+            <span>Marvel Universe</span>
+            <h1>Wanda vision <br></h1>
+            <p>Duration: 120mins  UA:16+  <i class="bx bxs-star"></i>9.5</p> 
+            <a href="" class="btn">Watch Now</a>
+            
+            <a href="" class="play">
+              <i class='bx bx-play'></i>
+            </a>
+          </div>
+        </div>
+      
+        <div class="swiper-slide container">
+          <img src="./images/dr.strange.jpg" alt="">
+          <div class="home-text">
+            <span>Marvel Universe</span>
+            <h1>Doctor Strange: <br>In the madness of multiverse</h1>
+            <p>Duration: 120mins  UA:16+  <i class="bx bxs-star"></i>9.5</p> 
+            <a href="" class="btn">Watch Now</a>
+            <a href="" class="play">
+              <i class='bx bx-play'></i>
+            </a>
+          </div>
+        </div>
+      
+      <div class="swiper-slide container">
+          <img src="./images/black-banner.png" alt="">
+          <div class="home-text">
+            <span>Marvel Universe</span>
+            <h1>Black Panther</h1>
+            <p>Duration: 120mins  UA:16+  <i class="bx bxs-star"></i>9.5</p> 
+            <a href="" class="btn">Watch Now</a>
+            <a href="" class="play">
+              <i class='bx bx-play'></i>
+            </a>
+          </div>
+        </div>
+        <div class="swiper-slide container">
+          <img src="./images/spider-man-no-way-home.jpg" alt="">
+          <div class="home-text">
+            <span>Marvel Universe</span>
+            <h1>Spider-man<br>No way home</h1>
+            <p>Duration: 120mins  UA:16+  <i class="bx bxs-star"></i>9.5</p> 
+            <a href="" class="btn">Watch Now</a>
+            <a href="" class="play">
+              <i class='bx bx-play'></i>
+            </a>
+          </div>
+      </div>
+      </div>
+      
+      <div class="swiper-pagination"></div>
+      
+
+    </section>
+    <!--Movies-->
+    <div class="movies" id="movies">
+      <h2 class="heading">Latest Movies</h2>
+      <!--Movies container-->
+      <div class="movies-container">
+      <?php
+    $query = "SELECT *FROM movie";
+    $run = mysqli_query($con, $query);
+    if($run){
+    while ($row = mysqli_fetch_assoc($run)) {
+      echo $row['id'];
+    ?>
+        <!--box1-->
+        <div class="box">
+          <div class="box-img">
+            <img src="./images/post-1.jpg" alt="">
+          </div>
+          <h3>Venom</h3>
+          <span>120 min | Action</span>
+        </div>
+        <?php
+    }
+  }
+  ?>
+         <!--box2-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/theatre-dead.jpg" alt="">
+          </div>
+          <h3>theatre-dead</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box3-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/supergirl.jpg" alt="">
+          </div>
+          <h3>supergirl</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box4-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/resident-evil.jpg" alt="">
+          </div>
+          <h3>resident-evil</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box5-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/blood-shot.jpg" alt="">
+          </div>
+          <h3>blood-shot</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box6-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/star-trek.jpg" alt="">
+          </div>
+          <h3>Star-trek</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box7-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/love-roise.jpg" alt="">
+          </div>
+          <h3>love-roise</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box8-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/penthouses.jpg" alt="">
+          </div>
+          <h3>penthouses</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box9-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/transformer.jpg" alt="">
+          </div>
+          <h3>transformer</h3>
+          <span>120 min | Action</span>
+        </div>
+         <!--box10-->
+         <div class="box">
+          <div class="box-img">
+            <img src="./images/bat-man.jpg" alt="">
+          </div>
+          <h3>Batman</h3>
+          <span>120 min | Action</span>
+        </div>
+      </div>
+    </div>
+    <!--coming-->
+    <section class="Coming"id="Coming">
+      <h2 class="heading">Coming Soon</h2>
+      <!--  coming container  -->
+      <div class="coming-container swiper">
+        <div class="swiper-wrapper">
+          <!--box1-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/post-3.jpg"alt="">
+        </div>
+        <h3>Junglce circus</h3>
+      </div>
+      
+          <!--box2-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/s-3.jpg"alt="">
+        </div>
+        <h3>Beauty and beast</h3>
+      </div>
+    
+          <!--box3-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/s-4.jpg"alt="">
+        </div>
+        <h3>Ready players</h3>
+      </div>
+      
+          <!--box4-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/m-2.jpg"alt="">
+        </div>
+        <h3>Peninsula</h3>
+      </div>
+     
+          <!--box5-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/m-3.jpg"alt="">
+        </div>
+        <h3>Inception</h3>
+      </div>
+      
+          <!--box6-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/m-4.jpg"alt="">
+        </div>
+        <h3>IronMan3</h3>
+      </div>
+      
+          <!--box7-->
+        <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/s-1.jpg"alt="">
+        </div>
+        <h3>Godzila</h3>
+      </div>
+       <!--box8-->
+       <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/mandalorian.jpg"alt="">
+        </div>
+        <h3>mandalorian</h3>
+      </div>
+       <!--box9-->
+       <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/s-5.png"alt="">
+        </div>
+        <h3>Madmax</h3>
+      </div>
+       <!--box10-->
+       <div class="swiper-slide box">
+        <div class="box-img">
+        <img src="./images/fantastic.jpg"alt="">
+        </div>
+        <h3>FantasticBeast</h3>
+      </div>
+       
+      </div>
+    </div>
+    </section>
+    <!--footer-->
+    <section class="footer">
+      <a href="" class="logo">
+        <i class="bx bxs-movie"></i>GPTv
+
+      </a>
+      <div class="social">
+        <a href=""><i class='bx bxl-youtube'></i></a>
+        <a href=""><i class='bx bxl-facebook'></i></a>
+        <a href=""><i class='bx bxl-twitter'></i></a>
+        <a href=""><i class='bx bxl-instagram'></i></a>
+      </div>
+    </section>
+    <div class="copyright">
+      <p>&#169; GPTv All right reserved</p>
+    </div>
+
+
+   
+
+   <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+ <!--Link to custom Js-->
+ <script src="main.js"></script>
+    
+</body>
+</html>
+
+
+
+//main.js
+let header = document.querySelector('header');
+
+window.addEventListener('scroll', () =>{
+  header.classList.toggle('shadow', window.scrollY > 0);
+});
+var swiper = new Swiper(".home-swiper", {
+  spaceBetween: 30,
+  centeredSlides: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  
+ navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+ },
+});
+var swiper = new Swiper(".coming-container", {
+  spaceBetween: 20,
+  loop:true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false,
+  },
+ breakpoints:{
+  0:{
+    slidesPerView:2,
+  },
+  568:{
+    slidesPerView:3,
+  },
+  768:{
+    slidesPreView:4,
+  },
+  968:{
+    slidesPerView:5,
+  },
+ }
+});
+var swiper = new Swiper(".popular-container", {
+  spaceBetween: 20,
+  loop:true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false,
+  },
+ breakpoints:{
+  0:{
+    slidesPerView:2,
+  },
+  568:{
+    slidesPerView:3,
+  },
+  768:{
+    slidesPreView:4,
+  },
+  968:{
+    slidesPerView:5,
+  },
+ }
+});
+// Initialize swiper for latest movies section
+var swiper = new Swiper(".latest-movies-container", {
+  spaceBetween: 20,
+  loop: true,
+  centeredSlides: true,
+  autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+  },
+  breakpoints: {
+      0: {
+          slidesPerView: 2,
+      },
+      568: {
+          slidesPerView: 3,
+      },
+      768: {
+          slidesPreView: 4,
+      },
+      968: {
+          slidesPerView: 5,
+      },
+  }
+});
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-padding-top: 2rem;
+    scroll-behavior: smooth;
+}
+/* Some Variables */
+:root {
+--main-color:  #ff1f50;
+--text-color:  #0a0912;
+--bg-color:    #dfdadafd;
+
+}
+
+body {
+background: var(--text-color);
+color: var(--bg-color);
+}
+section{
+ padding: 0.1rem 0 2.5rem;   
+}
+header{
+ position:fixed;
+ width: 100%;
+ top: 0;
+ right: 0;
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 15px 100px;
+ transition: 0.5s;
+/*background: var(--main-color);*/
+
+}
+header.shadow{
+    background: var(--bg-color);
+    box-shadow: 0 0 4px rgb(14 55 54/15%);
+}
+header.shadow .navbar a{
+    color: var(--text-color);
+}
+header.shadow .logo{
+    color:var(--text-color)
+}
+
+.logo{
+    font-size: 1.8rem;
+    font-weight: 1000;
+    align-items: left;
+    text-align: left;
+    color: var(--bg-color);
+    display: flex;
+    column-gap: 0.2rem;
+   margin-right: 3rem ;
+
+}
+
+.bx{
+    
+    color: #ee1aa4;
+}
+
+.navbar {
+    display: flex;
+    column-gap: 3rem;
+    justify-content: center;
+    align-items: center;
+   /* background: var(--text-color);  */ 
+}
+.navbar li{
+    position: relative;
+    margin: 0 1rem;
+}
+.navbar a{
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--bg-color) ; 
+    position: relative;
+}
+.navbar a::after{
+    content: '';
+    width:0;
+    height: 2px;
+    background: var(--main-color);
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: 0.4s all linear;
+}
+.navbar a:hover::after, 
+.navbar .home-active::after{
+    width: 100%;
+}
+#menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000001;
+    display: none;
+}
+
+.btn{
+    padding: 0.7rem 1.4rem;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 400;
+    border-radius: 0.5rem;
+    margin-left: auto;
+}
+.btn:hover{
+    background: #fa1216
+}
+/* Home */
+
+section{
+    padding: 0.1rem 1.5rem;
+}
+.container{
+    position: relative;
+    width: 100%;
+    min-height: 640px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgb(2, 3, 7,0.5);
+}
+.container img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+}
+.home-text {
+    text-align: left; /* Center the text horizontally */
+    position: relative;
+    top: 50%; /* Move the text down by 50% of its parent's height */
+    transform: translateY(-50%); /* Center the text precisely */
+    z-index: 1; /* Ensure the text is above the image */
+    color: #fff; /* Set the text color to white or any preferred color */
+    width: 99%; /* Adjust the width of the text container */
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.swiper-pagination-bullet{
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 0.2rem !important;
+    background: var(--bg-color) !important;
+    opacity:1 !important ;
+}
+
+.swiper-pagination-bullet-active{
+    width: 1.5rem !important;
+    background: var(--main-color) !important;
+}
+.home-text{
+    z-index: 1000;
+    padding: 0 150px ;
+
+}
+.home-text span{
+    color: var(--bg-color) ;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.home-text h1{
+    color: var(--bg-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.home-text p{
+    word-spacing: 7px;
+    margin-bottom: 20px ;
+    font-size:smaller ;
+    justify-content: center;
+    font-style: bold;
+
+}
+.play{
+    position: absolute;
+    right: 4rem;
+    bottom: 10%;
+}
+.play .bx{
+    background: var(--bg-color);
+    padding:10px;
+    font-size: 2rem;
+    border-radius: 50%;
+    border: 4px solid rgb(2, 3, 7,0.5);
+    color: var(--main-color);
+
+}
+.play  .bx:hover{
+    background: var(--main-color);
+    color: var(--bg-color);
+    transition: 0.2s all linear;
+}
+/*movies*/
+/* Latest Movies */
+.movies-container{
+    display: grid;
+    gap:2rem;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.movies-container .box img:hover{
+    border-radius: 15px;
+}
+.movies-container .box img{
+    border-radius: 15px;
+}
+/*popular container*/
+.most-popular-container{
+    display: grid;
+    gap:2rem;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+}
+.most-popular-container .box img:hover{
+    border-radius: 15px;
+}
+.most-popular-container .box img{
+    border-radius: 15px;
+}
+
+/*coming container*/
+.coming-container{
+    display: grid;
+    gap:1rem;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+}
+.coming-container .box img:hover{
+    border-radius: 15px;
+}
+.coming-container .box img{
+    border-radius: 15px;
+}
+/*Anime*/
+.anime{
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--main-color);
+}
+.anime-container{
+    max-width: 968px;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,auto));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.box .box-img{
+    width: 100%;
+    height: 270px;
+    cursor: pointer;
+}
+.box .box-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box .box-img img:hover{
+    transform: translateY(-10px);
+    transition: 0.2s all linear;
+}
+.box h3{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.box span{
+    font-size: 14px;
+}
+.popular-container{
+    display: grid;
+    gap:1rem;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+}
+.popular-container .box img:hover{
+    border-radius: 15px;
+}
+.popular-container .box img{
+    border-radius: 15px;
+}
+/*series*/
+.Series{
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--main-color);
+}
+.Series-container{
+    max-width: 968px;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,auto));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.box .box-img{
+    width: 100%;
+    height: 270px;
+    cursor: pointer;
+}
+.box .box-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box .box-img img:hover{
+    transform: translateY(-10px);
+    transition: 0.2s all linear;
+}
+.box h3{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.box span{
+    font-size: 14px;
+}
+.popular-container{
+    display: grid;
+    gap:1rem;
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    padding-bottom: 10px;
+}
+.popular-container .box img:hover{
+    border-radius: 15px;
+}
+.popular-container .box img{
+    border-radius: 15px;
+}
+/* style.css */
+.about{
+    text-align: center;
+}
+
+.about-content{
+   width:100%;
+    margin:20px;
+    padding:60px;
+    text-align:center;
+}
+.about-img img{
+    margin: 50px;
+    width: 20%;
+    display: block;
+    margin: 10px auto;
+    
+}
+.text-container{
+    font-size: small;
+    font-weight: 300;
+    align-items: center;
+}
+
+.learn-more-btn{
+    background-color: #ff6600;
+    color: #160303;
+    padding: 10px 20px;
+    border: none;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* Add this to your existing CSS */
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 0.5rem;
+    border: 1px solid var(--main-color);
+    border-radius: 0.3rem;
+}
+
+.search-box button {
+    background: var(--bg-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #cdc4c4;
+}
+
+/*footer*/
+.footer{
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.social{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 0.5rem;
+}
+.social .bx{
+    background: var(--bg-color);
+    padding: 2px;
+    font-size: 2rem;
+    border-radius: 50%;
+    border: 4px solid rgb(2, 3, 7,0.5);
+    color: var(--main-color);
+}
+.social .bx:hover{
+    background: var(--main-color);
+    color: var(--bg-color);
+    transition: 0.2s all linear;
+}
+.copyright{
+    padding: 20px;
+    text-align: center;
+    color: var(--bg-color);
+}
+/*responsive*/
+@media (max-width: 991){
+    .home-text{
+        padding: 0 20px;
+    }
+}@media (max-width: 991){
+    .home-text{
+        padding: 18px 4%;
+    }
+    section{
+        padding: 50px 4%;
+    }
+    .home-text{
+        padding: 0 40%;
+    }
+    .home-text h1{
+        font-size: 3rem;
+
+    }
+}
+@media (max-width: 774px){
+    header{
+        padding: 12px 4%;
+
+    
+        }
+        #menu-icon{
+            display: initial;
+            color: var(--bg-color);
+        }
+    }
+    .movies .heading {
+        font-size: 2rem; /* Adjust the font size as needed */
+        font-weight: bold; /* Set the font weight to bold */
+        color: #333; /* Set the color of the heading */
+        margin-bottom: 1rem;
+    }
+    .movies.heading.h2{
+margin-bottom: 1rem;
+    }
+    
+    
+
+
+
+
+
+ <div id="play" class="play">
+        <a href="javascript:void " class="close-movie">
+          <i class="fas fa-times"></i>
+        </a>
+        <div class="play-movie">
+          <video id="m-video" controls>
+            <source src="./YOU _ Trailer #2 [HD] _ Netflix.mp4" type="video/mp4">
+          </video>
+      <div>
+      </div>
+<?php
+require('connection.php');
+
+if (isset($_POST['login'])) {
+    $Email = $_POST['mail'];
+    $query = "SELECT * FROM `sign` WHERE `email` = '$Email'";
+    $result = mysqli_query($con, $query);
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            $result_fetch = mysqli_fetch_assoc($result);
+            echo "Database Hashed Password: " . $result_fetch["password"] . "<br>";
+            echo "Input Hashed Password: " . password_hash($_POST['pass'], PASSWORD_DEFAULT) . "<br>";
+            if(password_verify($_POST['pass'], $result_fetch["password"])) 
+            {
+                echo"right";
+            }
+            else
+            {
+                echo "
+            <script>
+            alert('Incorrect Password');
+            window.location.href='index1.php';
+            </script>
+            ";
+
+            }
+        }
+            
+         else {
+            echo "
+            <script>
+            alert('Email does not exist');
+            window.location.href='inde1x.php';
+            </script>
+            ";
+         
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <link rel="stylesheet" href="style1.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+</head>
+<body>
+  
+    <div class="login-box">
+        <h1>Login</h1>
+        <form method="POST">
+          <label>Email</label>
+          <input type="email" name="mail" required>
+          <label>password</label>
+          <input type="password" name="pass" required>
+          <input type="submit" name="" value="Submit">
+          <p><a href="resetPassword.php">Forgot your password?</a></p> <!-- Add the forgot password link here -->
+
+          
+        </form>
+        <p>Not have an account?<a href="signin.php">Sign up here</a></p>
+        
+        
+            
+
+</body>
+</html>
+
+
+
+   
+        <?php
+require('connection.php');
+
+if (isset($_POST['login'])) {
+    $Email = $_POST['mail'];
+    
+    // Debugging: Output the email for verification
+    echo "Email submitted: " . $Email . "<br>";
+    
+    $query = "SELECT * FROM `sign` WHERE `email` = '$Email'";
+    $result = mysqli_query($con, $query);
+    
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            $result_fetch = mysqli_fetch_assoc($result);
+            echo "Database Hashed Password: " . $result_fetch["password"] . "<br>";
+            
+            // Debugging: Output the hashed password retrieved from the database
+            echo "Input Hashed Password: " . password_hash($_POST['pass'], PASSWORD_DEFAULT) . "<br>";
+            
+            // Debugging: Output the password entered by the user for verification
+            echo "Password entered: " . $_POST['pass'] . "<br>";
+            
+            if(password_verify($_POST['pass'], $result_fetch["password"])) {
+                echo "Password correct. Redirecting..."; // Debugging
+                // Perform login actions here (e.g., setting sessions, redirecting to dashboard)
+            } else {
+                echo "
+                    <script>
+                    alert('Incorrect Password');
+                    window.location.href='index1.php';
+                    </script>
+                ";
+            }
+        } else {
+            echo "
+                <script>
+                alert('Email does not exist');
+                window.location.href='index1.php';
+                </script>
+            ";
+        }
+    } else {
+        // Debugging: Output MySQL error if any
+        echo "MySQL Error: " . mysqli_error($con);
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style1.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="login-box">
+        <h1>Login</h1>
+        <form method="POST" action="login.php">
+            <label>Email</label>
+            <input type="email" name="mail" required>
+            <label>Password</label>
+            <input type="password" name="pass" required>
+            <input type="submit" name="login" value="Submit">
+            <p><a href="resetPassword.php">Forgot your password?</a></p>
+        </form>
+        <p>Don't have an account? <a href="signin.php">Sign up here</a></p>
+    </div>
+</body>
+
+</html>
